@@ -5,7 +5,8 @@ createApp({
         return {
             apiUrl: 'api.php',
             toDoList: [],
-            newTask: 'Prova'
+            newTask: '',
+            newTxt: ''
         };
     },
     mounted() {
@@ -31,8 +32,10 @@ createApp({
             })
         },
         addNewTask() {
-            const data = {newTask: this.newTask};
-            this.sendData(data);
+            if (this.newTask) {
+                const data = {newTask: this.newTask};
+                this.sendData(data);
+            }
         },
         updateTask(i) {
             const data = {updateTask: i};
@@ -41,6 +44,11 @@ createApp({
         deleteTask(i) {
             const data = {deleteTask: i};
             this.sendData(data);
-        }
+        },
+        editTxt(i) {
+            console.log(this.toDoList[i].newTxt);
+            const data = {modifyTask: i, newTxt: this.toDoList[i].newTxt};
+            this.sendData(data);
+        },
     }
 }).mount("#app");

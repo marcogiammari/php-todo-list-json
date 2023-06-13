@@ -22,6 +22,11 @@ elseif (isset($_POST['deleteTask'])) {
     array_splice( $toDoListData, $index, 1);
     file_put_contents("data.json", json_encode($toDoListData));
 }
+elseif (isset($_POST['modifyTask'])) {
+    $index = $_POST['modifyTask'];
+    $toDoListData[$index]['name'] = $_POST['newTxt'];
+    file_put_contents("data.json", json_encode($toDoListData));
+}
 
 
 $toDoList = json_encode($toDoListData);
