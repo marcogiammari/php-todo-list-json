@@ -1,24 +1,30 @@
 <?php 
 
-$movies = [
-    [
-        'title' => 'Lord of The Rings',
-        'year' => '2001',
-        'genre' => 'Fantasy'
-    ],
-    [
-        'title' => 'Titanic',
-        'year' => '1997',
-        'genre' => 'Drama'
-    ],
-    [
-        'title' => 'Gladiator',
-        'year' => '2000',
-        'genre' => 'Action, Historical'
-    ]
-];
-
 header('Content-Type: application/json');
-echo json_encode($movies);
+
+$toDoList = file_get_contents("data.json");
+$toDoListData = json_decode($toDoList, true);
+
+if (isset($_POST['newTask'])) {
+    $toDoListData[] = [
+        'name' => $_POST['newTask'],
+        'status' => false
+    ];
+    file_put_contents("data.json", json_encode($toDoListData));
+} 
+elseif (isset($_POST['updateTask'])) {
+    $index = $_POST['updateTask'];
+    $toDoListData[$index]['status'] = !$toDoListData[$index]['status'];
+    file_put_contents("data.json", json_encode($toDoListData));
+}
+elseif (isset($_POST['deleteTask'])) {
+    $index = $_POST['deleteTask'];
+    array_splice( $toDoListData, $index, 1);
+    file_put_contents("data.json", json_encode($toDoListData));
+}
+
+
+$toDoList = json_encode($toDoListData);
+echo $toDoList;
 
 ?>
