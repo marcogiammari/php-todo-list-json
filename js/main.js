@@ -6,7 +6,6 @@ createApp({
             apiUrl: 'api.php',
             toDoList: [],
             newTask: '',
-            newTxt: ''
         };
     },
     mounted() {

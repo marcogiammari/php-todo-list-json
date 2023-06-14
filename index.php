@@ -27,10 +27,10 @@
                     <tbody>
                         <tr v-for="(toDo, i) in toDoList">
                             <th scope="row" class="d-flex align-items-center gap-3">
-                                <span @click="updateTask(i)" :class="toDo.status ? 'text-decoration-line-through' : 'null'">
+                                <span v-if="!toDo.edit" @click="updateTask(i)" :class="{'text-decoration-line-through': toDo.status}">
                                     {{ toDo.name }}
                                 </span>
-                                <div v-show="toDo.edit" class="input-group w-auto">
+                                <div v-else class="input-group w-auto">
                                     <input @keyup.enter="editTxt(i)" v-model="toDo.newTxt" class="my-edit form-control" type="text">
                                     <button @click="editTxt(i)" class="btn btn-primary">Edit</button>
                                 </div>
